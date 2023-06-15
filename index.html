@@ -9,20 +9,13 @@
 <body>
 
    <div class="login-card-contaner">
-
-    <form class="form-container">
-        <input type="email" name="userEmail" id="email" placeholder="Email">
-        <input type="password" name="userPassword" id="password" placeholder="Password">
-    </form>
-    
-    <button type="button" id="login-button" >Login</button>
+        <form class="form-container">
+            <input type="email" name="userEmail" pattern="[^ @]*@[^ @]*" id="email" placeholder="Email" />
+            <input type="password" name="userPassword" id="password" placeholder="Password">
+        </form>
+        <button type="button" id="login-button" >Login</button>
    </div>
-
-  
-  
-
-
-    
+   
     <script src="main.js"></script>
 </body>
 </html>
