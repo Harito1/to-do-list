@@ -10,12 +10,14 @@ var SignUpbtn = document.querySelector('#signup-button');
 var NameInput = document.querySelector('#name');
 var lastNameInput = document.querySelector('#lastname');
 var ageInput = document.querySelector('#Age');
-var emailInput = document.querySelector('#SignupEmail')
+var emailInputSignup = document.querySelector('#SignupEmail')
 
 
 loginbtn.addEventListener("click", GetloginForm, verifyUserDetails);
 SignUpbtn.addEventListener("click", GetSignInForm)
 SignUpbtn.addEventListener("click", SignUp)
+SignUpbtn.addEventListener("click", GetUsers)
+
 
 const users = [
     {
@@ -172,7 +174,6 @@ for (let i = 0; i < users.length; i++) {
 
     break;
   }
- 
 }
 
 return dbUser
@@ -222,15 +223,31 @@ function SignUp() {
   // Get all input values
 
   const name = NameInput.value;
-  const email = emailInput.value;
+  const email = emailInputSignup.value;
   const lastname = lastNameInput.value;
   const age = ageInput.value;
 
-  // push values into users array
-
+  // alert user to fill in specified input fields
+if (UserAlreadySigned) {
+  alert('user email exists')
+}
+if (name == '') {
+  alert('Enter name')
+}
+if (email == '') {
+  alert('Enter email')
+}
+if (lastname == '') {
+  alert('Enter last name')
+}
+if (age == 0) {
+  alert('Enter age')
+}
+else {
   users.push({name, lastname, email, age})
-
   console.log(users);
+}
   
 }
+
 
