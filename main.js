@@ -12,11 +12,15 @@ var lastNameInput = document.querySelector('#lastname');
 var ageInput = document.querySelector('#Age');
 var emailInputSignup = document.querySelector('#SignupEmail')
 
+// LOGIN //
+loginbtn.addEventListener("click", GetloginForm);
+loginbtn.addEventListener("click", verifyUserDetails);
 
-loginbtn.addEventListener("click", GetloginForm, verifyUserDetails);
-SignUpbtn.addEventListener("click", GetSignInForm)
-SignUpbtn.addEventListener("click", SignUp)
-SignUpbtn.addEventListener("click", GetUsers)
+// SIGN UP //
+SignUpbtn.addEventListener("click", SignUp, clearSignUpForm, GetSignInForm);
+SignUpbtn.addEventListener("click", clearSignUpForm);
+SignUpbtn.addEventListener("click", GetSignInForm);
+
 
 
 const users = [
@@ -129,7 +133,7 @@ function verifyUserDetails() {
   // if the user does not exist
   if (dbUser === null){
 
-    alert('User does not exit')
+    alert('fill in login details')
 
   }
 
@@ -139,7 +143,7 @@ function verifyUserDetails() {
     
     // make form card disapear
 
-    var formCard = document.querySelector('.login-card-contaner');
+    var formCard = document.querySelector('.card-contaner');
     formCard.style.display = "none"
 
     // welcome message
@@ -227,27 +231,47 @@ function SignUp() {
   const lastname = lastNameInput.value;
   const age = ageInput.value;
 
+// check if user is using an email that already exists to sign up
+  for (let i = 0; i < users.length; i++) {
+
+    var user = users[i]
+  
+  }
+
   // alert user to fill in specified input fields
-if (UserAlreadySigned) {
-  alert('user email exists')
-}
+
 if (name == '') {
   alert('Enter name')
-}
-if (email == '') {
-  alert('Enter email')
+  return;
 }
 if (lastname == '') {
   alert('Enter last name')
+  return;
+}
+if (email == '') {
+  alert('Enter email')
+  return;
 }
 if (age == 0) {
   alert('Enter age')
+  return;
 }
+if (user.email === email) {
+  
+  alert('user exists')
+
+  return
+} 
 else {
   users.push({name, lastname, email, age})
   console.log(users);
+  return
 }
+
+}
+
+function clearSignUpForm() {
+
+  document.querySelector(".Sign-up-form").reset();
   
 }
-
-
