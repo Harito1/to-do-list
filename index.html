@@ -8,13 +8,29 @@
 </head>
 <body>
 
-   <div class="login-card-contaner">
-        <form class="form-container">
-            <input type="email" name="userEmail" pattern="[^ @]*@[^ @]*" id="email" placeholder="Email" />
-            <input type="password" name="userPassword" id="password" placeholder="Password">
-        </form>
-        <button type="button" id="login-button" >Login</button>
-   </div>
+    <div class="main-container">
+        <div class="card-contaner">
+            <form class="login-form">
+                <input type="email" name="userEmail" pattern="[^ @]*@[^ @]*" id="email" placeholder="Email" />
+                <input type="password" name="userPassword" id="password" placeholder="Password"/>
+            </form>
+ 
+            <form class="Sign-up-form">
+                <input type="name" name="userName"  id="name" placeholder="name"/>
+                <input type="name" name="lastname" id="lastname" placeholder="last name"/>
+                <input type="email" name="email"  pattern="[^ @]*@[^ @]*"  id="SignupEmail" placeholder="Email"/>
+                <input type="password" name="password" id="SignupPassword" placeholder="password"/>
+            </form>
+            <button type="button" id="signup-button">Sign up</button>
+            <button type="button" id="login-button">Login</button>
+            
+       </div>
+
+       <div class="welcome-message">
+        <h1 id="welcome-text"></h1>
+       </div>
+    </div>
+
    
     <script src="main.js"></script>
 </body>

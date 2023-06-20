@@ -9,18 +9,14 @@ var loginbtn = document.getElementById("login-button");
 var SignUpbtn = document.querySelector('#signup-button');
 var NameInput = document.querySelector('#name');
 var lastNameInput = document.querySelector('#lastname');
-var ageInput = document.querySelector('#Age');
+var SignupPassword = document.querySelector('#SignupPassword');
 var emailInputSignup = document.querySelector('#SignupEmail')
 
 // LOGIN //
-loginbtn.addEventListener("click", GetloginForm);
-loginbtn.addEventListener("click", verifyUserDetails);
+loginbtn.addEventListener("click", Login);
 
 // SIGN UP //
-SignUpbtn.addEventListener("click", SignUp, clearSignUpForm, GetSignInForm);
-SignUpbtn.addEventListener("click", clearSignUpForm);
-SignUpbtn.addEventListener("click", GetSignInForm);
-
+SignUpbtn.addEventListener("click", SignUp);
 
 
 const users = [
@@ -122,27 +118,18 @@ const users = [
  *  or login successfull or incorrect details if both inputs dont match.
  */
 
-function verifyUserDetails() {
+function Login() {
   
+  SwitchtoLOGIN()
 
   // find out if the user exists
   const dbUser =  GetUsers(users)
 
   console.log(dbUser)
 
-  // if the user does not exist
-  if (dbUser === null){
-
-    alert('fill in login details')
-
-  }
-
   // check password
   if (dbUser.password === PasswordInput.value) {
-
-    
     // make form card disapear
-
     var formCard = document.querySelector('.card-contaner');
     formCard.style.display = "none"
 
@@ -153,6 +140,11 @@ function verifyUserDetails() {
   }else {
 
     alert('Wrong password')
+  }
+  // if the user does not exist
+  if (dbUser === null){
+
+    alert('fill in login details')
   }
 
 }
@@ -187,7 +179,7 @@ return dbUser
 /**
  * this function gets the login form if the user wants to login
  */
-function GetloginForm() {
+function SwitchtoLOGIN() {
 
   var SignUpForm = document.querySelector('.Sign-up-form')
   SignUpForm.style.display = "none"
@@ -223,13 +215,15 @@ function GetSignInForm() {
  */
 
 function SignUp() {
+     
+   GetSignInForm()
 
   // Get all input values
 
   const name = NameInput.value;
   const email = emailInputSignup.value;
   const lastname = lastNameInput.value;
-  const age = ageInput.value;
+  const password = SignupPassword.value;
 
 // check if user is using an email that already exists to sign up
   for (let i = 0; i < users.length; i++) {
@@ -242,36 +236,31 @@ function SignUp() {
 
 if (name == '') {
   alert('Enter name')
-  return;
+  
 }
 if (lastname == '') {
   alert('Enter last name')
-  return;
+
 }
 if (email == '') {
   alert('Enter email')
-  return;
+  
 }
-if (age == 0) {
-  alert('Enter age')
+if (password == 0) {
+  alert('Enter password')
   return;
 }
 if (user.email === email) {
   
   alert('user exists')
-
-  return
 } 
 else {
-  users.push({name, lastname, email, age})
+  users.push({name, lastname, email, password})
   console.log(users);
-  return
 }
+
+document.querySelector(".Sign-up-form").reset();
 
 }
 
-function clearSignUpForm() {
 
-  document.querySelector(".Sign-up-form").reset();
-  
-}
