@@ -1,43 +1,21 @@
+// LOGIN FORM
 
-var email = document.getElementById("email");
-var password = document.getElementById("password");
+var EmailInput = document.getElementById("email");
+var PasswordInput = document.getElementById("password");
 var loginbtn = document.getElementById("login-button");
 
+// Get all sign up form elements 
 
-loginbtn.addEventListener("click", verifyUserDetails)
-
-/**
- * This function verifies if the users Email and password input match the users saved
- * Email and password, if not it will alert incorrect email/password
- *  or login successfull or incorrect details if both inputs dont match.
- */
-
-function verifyUserDetails() {
-
-    const valid = email.value === ValidUserEmail && password.value === ValidUserPassword;
-
-    if (valid) {
-        alert('login Successful');
-        return
-    }
-
-    if (valid !== ValidUserEmail && valid !== ValidUserPassword) {
-
-        alert('Incorrect details')
-        return
-    }
-    if (email.value !== ValidUserEmail) {
-        alert('Incorrect email');
-
-    }
-    else if (password.value !== ValidUserPassword) {
-
-        alert('Incorrect Password');
-
-    }
-}
+var SignUpbtn = document.querySelector('#signup-button');
+var NameInput = document.querySelector('#name');
+var lastNameInput = document.querySelector('#lastname');
+var ageInput = document.querySelector('#Age');
+var emailInput = document.querySelector('#SignupEmail')
 
 
+loginbtn.addEventListener("click", GetloginForm, verifyUserDetails);
+SignUpbtn.addEventListener("click", GetSignInForm)
+SignUpbtn.addEventListener("click", SignUp)
 
 const users = [
     {
@@ -132,5 +110,127 @@ const users = [
     }
   ]
 
-console.log(users[age]);
+/**
+ * This function verifies if the users Email and password input match the users saved
+ * Email and password, if not it will alert incorrect email/password
+ *  or login successfull or incorrect details if both inputs dont match.
+ */
+
+function verifyUserDetails() {
+  
+
+  // find out if the user exists
+  const dbUser =  GetUsers(users)
+
+  console.log(dbUser)
+
+  // if the user does not exist
+  if (dbUser === null){
+
+    alert('User does not exit')
+
+  }
+
+  // check password
+  if (dbUser.password === PasswordInput.value) {
+
+    
+    // make form card disapear
+
+    var formCard = document.querySelector('.login-card-contaner');
+    formCard.style.display = "none"
+
+    // welcome message
+    var welcomeText = document.querySelector('#welcome-text')
+    welcomeText.innerHTML = 'Welcome back ' + dbUser.name +' '+ dbUser.lastName
+
+  }else {
+
+    alert('Wrong password')
+  }
+
+}
+
+/**
+ * this function gets all users and stores them into a dbUser(database) variable
+ * only if the email matches
+ * @param {Array} users 
+ */
+function GetUsers(users) {
+
+  var dbUser = null
+
+for (let i = 0; i < users.length; i++) {
+
+  var user = users[i]
+
+  // get the user by matching their email address
+
+  if (user.email === EmailInput.value) {
+
+    dbUser = user
+
+    break;
+  }
+ 
+}
+
+return dbUser
+  
+}
+
+/**
+ * this function gets the login form if the user wants to login
+ */
+function GetloginForm() {
+
+  var SignUpForm = document.querySelector('.Sign-up-form')
+  SignUpForm.style.display = "none"
+
+  const EmailInputField = document.querySelector('#email')
+  EmailInputField.style.display = "inline"
+
+  const PasswordInputField = document.querySelector('#password')
+  PasswordInputField.style.display = "inline"
+  
+}
+
+/**
+ * this function gets the sign up form if the user wants to  sign up
+ */
+function GetSignInForm() {
+
+  var SignUpForm = document.querySelector('.Sign-up-form')
+  SignUpForm.style.display = "inline"
+ 
+
+  const EmailInputField = document.querySelector('#email')
+  EmailInputField.style.display = "none"
+
+  const PasswordInputField = document.querySelector('#password')
+  PasswordInputField.style.display = "none"
+  
+}
+
+/**
+ * this function captures the values the user uses to sign up, and adds the values
+ * into the dbusers variable
+ */
+
+function SignUp() {
+
+  // Get all input values
+
+  const name = NameInput.value;
+  const email = emailInput.value;
+  const lastname = lastNameInput.value;
+  const age = ageInput.value;
+
+  // push values into users array
+
+  users.push({name, lastname, email, age})
+
+  console.log(users);
+  
+}
 
