@@ -147,6 +147,9 @@ function Login() {
     alert('fill in login details')
   }
 
+  console.log(dbUser.email);
+  document.querySelector(".login-form").reset();
+
 }
 
 /**
@@ -184,6 +187,9 @@ function SwitchtoLOGIN() {
   var SignUpForm = document.querySelector('.Sign-up-form')
   SignUpForm.style.display = "none"
 
+  var login = document.querySelector('.login-form')
+  login.style.display = "inline"
+
   const EmailInputField = document.querySelector('#email')
   EmailInputField.style.display = "inline"
 
@@ -195,17 +201,26 @@ function SwitchtoLOGIN() {
 /**
  * this function gets the sign up form if the user wants to  sign up
  */
-function GetSignInForm() {
+function SwitchtoSignUp() {
+
+  var login = document.querySelector('.login-form')
+  login.style.display = "none"
 
   var SignUpForm = document.querySelector('.Sign-up-form')
   SignUpForm.style.display = "inline"
- 
 
-  const EmailInputField = document.querySelector('#email')
-  EmailInputField.style.display = "none"
 
-  const PasswordInputField = document.querySelector('#password')
-  PasswordInputField.style.display = "none"
+  // const nameInputField = document.querySelector('#name')
+  // nameInputField.style.display = "inline"
+
+  // const lastnameInputField = document.querySelector('#lastname')
+  // lastnameInputField.style.display = "inline"
+
+  // const emailInputField = document.querySelector('#SignupEmail')
+  // emailInputField.style.display = "inline"
+
+  // const PasswordInputField = document.querySelector('#SignupPassword')
+  // PasswordInputField.style.display = "inline"
   
 }
 
@@ -215,14 +230,14 @@ function GetSignInForm() {
  */
 
 function SignUp() {
-     
-   GetSignInForm()
 
+  SwitchtoSignUp()
+ 
   // Get all input values
 
   const name = NameInput.value;
   const email = emailInputSignup.value;
-  const lastname = lastNameInput.value;
+  const lastName = lastNameInput.value;
   const password = SignupPassword.value;
 
 // check if user is using an email that already exists to sign up
@@ -238,7 +253,7 @@ if (name == '') {
   alert('Enter name')
   
 }
-if (lastname == '') {
+if (lastName == '') {
   alert('Enter last name')
 
 }
@@ -250,12 +265,12 @@ if (password == 0) {
   alert('Enter password')
   return;
 }
-if (user.email === email) {
+if (user.email == email) {
   
   alert('user exists')
 } 
 else {
-  users.push({name, lastname, email, password})
+  users.push({name, lastName, email, password})
   console.log(users);
 }
 
