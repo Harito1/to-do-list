@@ -19,98 +19,6 @@ loginbtn.addEventListener("click", Login);
 SignUpbtn.addEventListener("click", SignUp);
 
 
-// const users = [
-//     {
-//       name: 'John',
-//       lastName: 'Doe',
-//       age: 30,
-//       email: 'john.doe@example.com',
-//       address: { street: '123 Main St', city: 'New York', country: 'USA' },
-//       hobbies: ['reading', 'cooking', 'sports'],
-//       friends: { name: 'Jane', lastName: 'Smith', age: 28 },
-//       isActive: true,
-//       role: 'user',
-//       registrationDate: '2023-01-15',
-//       languages: ['English', 'Spanish', 'French'],
-//       education: { degree: "Bachelor's", major: 'Computer Science' },
-//       password: 'johnny'
-//     },
-//     {
-//       name: 'Alice',
-//       lastName: 'Johnson',
-//       age: 25,
-//       email: 'alice.johnson@example.com',
-//       address: { street: '456 Elm St', city: 'London', country: 'UK' },
-//       hobbies: ['painting', 'traveling', 'photography'],
-//       friends: { name: 'Bob', lastName: 'Anderson', age: 27 },
-//       isActive: false,
-//       role: 'user',
-//       registrationDate: '2023-02-10',
-//       languages: ['English', 'German'],
-//       education: { degree: "Master's", major: 'Business Administration' },
-//       password: 'ally'
-//     },
-//     {
-//       name: 'Sarah',
-//       lastName: 'Brown',
-//       age: 35,
-//       email: 'sarah.brown@example.com',
-//       address: { street: '789 Oak St', city: 'Sydney', country: 'Australia' },
-//       hobbies: ['guitar', 'hiking'],
-//       friends: { name: 'Michael', lastName: 'Smith', age: 32 },
-//       isActive: true,
-//       role: 'user',
-//       registrationDate: '2023-03-05',
-//       languages: ['English'],
-//       education: { degree: "Bachelor's", major: 'Psychology' },
-//       password: 'sary'
-//     },
-//     {
-//       name: 'Tim',
-//       lastName: 'Doe',
-//       age: 30,
-//       email: 'tim.doe@example.com',
-//       address: { street: '13 Main St', city: 'New York', country: 'USA' },
-//       hobbies: ['reading', 'gaming', 'soccer'],
-//       friends: { name: 'Jiendor', lastName: 'Manjate', age: 28 },
-//       isActive: true,
-//       role: 'admin',
-//       registrationDate: '2023-01-15',
-//       languages: ['English', 'Spanish', 'French'],
-//       education: { degree: "Bachelor's", major: 'Computer Science' },
-//       password: 'timmy'
-//     },
-//     {
-//       name: 'Alex',
-//       lastName: 'Henry',
-//       age: 27,
-//       email: 'Alex.henry@example.com',
-//       address: { street: '45 Ben St', city: 'London', country: 'South Africa' },
-//       hobbies: ['painting', 'traveling', 'gaming'],
-//       friends: { name: 'Jiendor', lastName: 'Manjate', age: 27 },
-//       isActive: false,
-//       role: 'user',
-//       registrationDate: '2023-02-10',
-//       languages: ['English', 'German'],
-//       education: { degree: "Master's", major: 'Business Administration' },
-//       password: 'lexy'
-//     },
-//     {
-//       name: 'Celeste',
-//       lastName: 'Brown',
-//       age: 35,
-//       email: 'Celeste.brown@example.com',
-//       address: { street: '67 Geldenhuis Road', city: 'Germiston', country: 'South Africa' },
-//       hobbies: ['guitar', 'hiking', 'soccer'],
-//       friends: { name: 'Jiendor', lastName: 'Manjate', age: 32 },
-//       isActive: true,
-//       role: 'user',
-//       registrationDate: '2023-03-05',
-//       languages: ['English'],
-//       education: { degree: 'N/A', major: 'N/A' },
-//       password: 'lestee'
-//     }
-//   ]
 
 // /**
 //  * This function verifies if the users Email and password input match the users saved
@@ -123,15 +31,15 @@ function Login() {
   SwitchtoLOGIN()
 
   // find out if the user exists
-  const dbUser =  GetUsers(users)
+  // const dbUser =  GetUsers(users)
 
-  console.log(dbUser)
+  // console.log(dbUser)
 
-  // if the user does not exist
-  if (dbUser === null){
-    alert('Enter valid email')
-    return
-  }
+  // // if the user does not exist
+  // if (dbUser === null){
+  //   alert('Enter valid email')
+  //   return
+  // }
 
   // check password
   if (dbUser.password === PasswordInput.value) {
@@ -158,27 +66,27 @@ function Login() {
 //  * only if the email matches
 //  * @param {Array} users 
 //  */
-function GetUsers(users) {
+// function GetUsers(users) {
 
-  var dbUser = null
+//   var dbUser = null
 
-for (let i = 0; i < users.length; i++) {
+// for (let i = 0; i < users.length; i++) {
 
-  var user = users[i]
+//   var user = users[i]
 
-  // get the user by matching their email address
+//   // get the user by matching their email address
 
-  if (user.email === EmailInput.value) {
+//   if (user.email === EmailInput.value) {
 
-    dbUser = user
+//     dbUser = user
 
-    break;
-  }
-}
+//     break;
+//   }
+// }
 
-return dbUser
+// return dbUser
   
-}
+// }
 
 // /**
 //  * this function gets the login form if the user wants to login
@@ -233,56 +141,77 @@ function SwitchtoSignUp() {
 function SignUp() {
 
   SwitchtoSignUp()
- 
-  // Get all input values
 
-  const name = NameInput.value;
-  const email = emailInputSignup.value;
-  const lastName = lastNameInput.value;
-  const password = SignupPassword.value;
-
-// check if user is using an email that already exists to sign up
-  for (let i = 0; i < users.length; i++) {
-
-    var user = users[i]
+  addData()
     
-  }
-
-  // alert user to fill in specified input fields
-
-if (name == '') {
-  alert('Enter name')
-  
-}
-if (lastName == '') {
-  alert('Enter last name')
-  
-}
-if (email == '') {
-  alert('Enter email')
-  
-}
-if (password == 0) {
-  alert('Enter password')
-  ;
-}
-if (email == user.email) {
-  alert('user exists')
-  
-} 
-else {
-  allusers.push({name, lastName, email, password})
-  console.log(allusers);
-}
-
 document.querySelector(".Sign-up-form").reset();
 
 }
 
 
-localStorage.setItem('allUsers', 'b');
-var usersDB = localStorage.getItem('allUsers');
+/**
+ * this function adds sign up data to the local storage
+ */
+function addData() {
 
-console.log(typeof usersDB);
+  // Get all input values
+
+  var firstname = NameInput.value;
+  var lastName = lastNameInput.value;
+  var Email = emailInputSignup.value;
+  var password = SignupPassword.value;
+
+
+  // check that no value is empty !!!
+  
+  if (firstname == '') {
+      alert('Enter name')
+      
+    }
+    if (lastName == '') {
+      alert('Enter last name')
+      
+    }
+    if (Email == '') {
+      alert('Enter email')
+      
+    }
+    if (password == '') {
+      alert('Enter password')
+      
+    }
+
+  var newUser = [{
+    Firstname: firstname, 
+    LastName: lastName, 
+    EmaiL: Email, 
+    Password: password 
+}]
+
+
+  // var user = localStorage.setItem('user', JSON.stringify(newUser))
+
+ 
+  var userss = []
+
+  var storage = localStorage.getItem('user');
+  
+  if (storage) {
+    // covert the string to an object
+     userss = JSON.parse(storage)
+  } 
+  else {
+    // no users found so create a new array
+    userss.push(storage)
+  }
+
+  
+
+   localStorage.setItem('user', JSON.stringify(newUser));
+   console.log('saving users', userss)
+   
+
+}
+
 
 
