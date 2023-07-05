@@ -18,9 +18,6 @@ body {
    
 };
 
-
-
-
 .login-form {
 
     background-color: #ECECEC;
@@ -29,7 +26,7 @@ body {
 
 }
 
-input {
+/* input {
 
     background-color: #ffffff;
     border-color: white;
@@ -41,7 +38,7 @@ input {
     padding-left: 7px;
     padding-bottom: 4px; 
     
-}
+} */
 
 #email {
 
@@ -71,10 +68,6 @@ input {
     
 }
 
-#password, #email {
-
-    display: none;
-}
 
 #welcome-text {
 
@@ -129,4 +122,18 @@ input {
     padding: 8px;
     margin: 10px;
     margin-left: 19%;
+}
+
+
+
+/*-- SIGN UP AND LOGIN PAGE DISPLAY*/
+.signup-page {
+
+   display: none;
+   
+}
+
+.login-page {
+  
+    display: none;
 }

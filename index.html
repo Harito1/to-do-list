@@ -3,35 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/tasks.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
     <title>to do list</title>
 </head>
 <body>
-
-    <div class="main-container">
+    <div class="login-page">
         <div class="card-contaner">
+    <!-- LOGIN PAGE FORM-->
             <form class="login-form">
                 <input type="email" name="userEmail" pattern="[^ @]*@[^ @]*" id="email" placeholder="Email" />
                 <input type="password" name="userPassword" id="password" placeholder="Password"/>
             </form>
- 
-            <form class="Sign-up-form">
-                <input type="name" name="userName"  id="name" placeholder="name"/>
-                <input type="name" name="lastname" id="lastname" placeholder="last name"/>
-                <input type="email" name="email"  pattern="[^ @]*@[^ @]*"  id="SignupEmail" placeholder="Email"/>
-                <input type="password" name="password" id="SignupPassword" placeholder="password"/>
-            </form>
+
+    <!-- SIGN UP PAGE FORM-->
+        <div class="signup-page">
+                <form class="Sign-up-form">
+                    <input type="name" name="userName"  id="name" placeholder="name"/>
+                    <input type="name" name="lastname" id="lastname" placeholder="last name"/>
+                    <input type="email" name="email"  pattern="[^ @]*@[^ @]*"  id="SignupEmail" placeholder="Email"/>
+                    <input type="password" name="password" id="SignupPassword" placeholder="password"/>
+                </form>
+        </div>
+    <!-- SIGN UP AND LOGIN BUTTON-->
             <button type="button" id="signup-button">Sign up</button>
             <button type="button" id="login-button">Login</button>
-            
-       </div>
-
-       <div class="welcome-message">
-        <h1 id="welcome-text"></h1>
-       </div>
+    
+      </div>
     </div>
 
+     <!-- Task's Page -->
+     <div class="tasks-page">
+      <div class="taskPage">
+            <h1>To do list</h1>
+
+                <div id="task-page-header">
+                    <input type="text" class="task-search"  placeholder="search for task">
+                    <button class="addTask-btn" >Add task</button>
+                </div>
+        
+                <ul class="todo-list"></ul>
+      </div>
+
+            <form class="task-form">
+
+                <input type="text" class="task-input"  placeholder="add task">
+                <input type="date" name="duedate" class="duedate">
+                
+                    <select name="priorities" class="priority">
+                        <option value="high">high</option>
+                        <option value="medium">medium</option>
+                        <option value="low">low</option>
+                    </select>
+        
+             <div class="form-buttons">
+                <button class="save-button" >Add</button>
+                <button class="save-Edit" >edit</button>
+            </div> 
+            </form>
+    </div>
    
-    <script src="main.js"></script>
+   
+    <script src="scripts/main.js"></script>
+    <script src="scripts/login.js"></script>
+    <script src="scripts/tasks.js"></script>
 </body>
 </html>
