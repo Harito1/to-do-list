@@ -32,26 +32,33 @@ function Login() {
   
   SwitchtoLOGIN()
 
-  /**
-   * 1. get all the data from users local storage and store in a variable called currentUsers
-   */
+ // find out if the user exists
+ const dbUser =  GetUsers(users)
 
- 
+ console.log(dbUser)
 
-  /** 
-   * 2. loop through all values in the currentUsers variable which is users local storage values.
-  */ 
+ // check password
+ if (dbUser.password === PasswordInput.value) {
+   // make form card disapear
+   var formCard = document.querySelector('.card-contaner');
+   formCard.style.display = "none"
 
-   
-   /**
-    * 3. for every item looped check:
-    *   
-    *    If password & email input values match password & email values in currentUser alert 'login succesful'
-    *    If password & email input values dont match password & email values in currentUser alert 'wrong details'
-    * 
-    *    If only password input value dont match password value in currentUser alert 'wrong password'
-    *    If only email input value dont match email value in currentUser alert 'wrong email'
-    */
+   // welcome message
+   var welcomeText = document.querySelector('#welcome-text')
+   welcomeText.innerHTML = 'Welcome back ' + dbUser.name +' '+ dbUser.lastName
+
+ }else {
+
+   alert('Wrong password')
+ }
+ // if the user does not exist
+ if (dbUser === null){
+
+   alert('fill in login details')
+ }
+
+ console.log(dbUser.email);
+ document.querySelector(".login-form").reset();
 }
 
  /**
@@ -59,6 +66,8 @@ function Login() {
   * only if the email matches
   */
 function GetUser() {
+
+
   for (let i = 0; i < userrs.length; i++) {
     var userr = userrs[i]
     // get the user by matching their email address
@@ -175,7 +184,7 @@ function SaveUsertolocalStorage(users) {
 }
 
 /**
- * hgjjj
+ * clears sign up form
  */
 function clearSignUpForm() {
 	document.querySelector(".Sign-up-form").reset();
@@ -203,3 +212,4 @@ function ValidateEmail() {
 
 	return valid
 }
+
