@@ -1,5 +1,9 @@
 // // LOGIN FORM
 
+setTimeout(() => {
+  console.log(this)
+}, 1000)
+
 var EmailInput = document.getElementById("email");
 var PasswordInput = document.getElementById("password");
 var loginbtn = document.getElementById("login-button");
@@ -18,67 +22,37 @@ loginbtn.addEventListener("click", Login);
 // SIGN UP //
 SignUpbtn.addEventListener("click", SignUp);
 
-
-
 var users = []
+
 
 // /**
 //  * This function verifies if the users Email and password input match the users saved
 //  * Email and password, if not it will alert incorrect email/password
 //  *  or login successfull or incorrect details if both inputs dont match.
 //  */
-
-function Login() {
+function Login(users) {
   
   SwitchtoLOGIN()
 
- // find out if the user exists
- const dbUser =  GetUsers(users)
+const usersString = localStorage.getItem('users')
+  if (usersString) {
+    users = JSON.parse(usersString)
+  } 
 
- console.log(dbUser)
+  for (let i = 0; i < users.length; i++) {
 
- // check password
- if (dbUser.password === PasswordInput.value) {
-   // make form card disapear
-   var formCard = document.querySelector('.card-contaner');
-   formCard.style.display = "none"
+    var correctEmail = EmailInput.value === users[i].email;
+    var correctPassword =  PasswordInput.value === users[i].password;
+    var correctDetails = correctEmail && correctPassword;
 
-   // welcome message
-   var welcomeText = document.querySelector('#welcome-text')
-   welcomeText.innerHTML = 'Welcome back ' + dbUser.name +' '+ dbUser.lastName
-
- }else {
-
-   alert('Wrong password')
- }
- // if the user does not exist
- if (dbUser === null){
-
-   alert('fill in login details')
- }
-
- console.log(dbUser.email);
- document.querySelector(".login-form").reset();
-}
-
- /**
-  * this function gets all users and stores them into a dbUser(database) variable
-  * only if the email matches
-  */
-function GetUser() {
-
-
-  for (let i = 0; i < userrs.length; i++) {
-    var userr = userrs[i]
-    // get the user by matching their email address
-    if (userr.email === EmailInput.value) {
-      dbUser = userr
-      break;
+    if (correctDetails) {
+      setPage('taskPage')
     }
   }
 
-  return dbUser
+ document.querySelector(".login-form").reset();
 }
+
 
  /**
   * this function gets the login form if the user wants to login
@@ -107,6 +81,15 @@ function SwitchtoSignUp() {
   var login = document.querySelector('.login-form')
   login.style.display = "none"
 
+  var task = document.querySelector('.signup-page')
+  task.style.display = 'block'
+
+  var email = document.querySelector('#SignupPassword')
+  email.style.display = "inline"
+  var password = document.querySelector('#SignupEmail')
+  password.style.display = "inline"
+
+
   var SignUpForm = document.querySelector('.Sign-up-form')
   SignUpForm.style.display = "inline"
 
@@ -117,8 +100,8 @@ function SwitchtoSignUp() {
 //  * this function captures the values the user uses to sign up, and adds the values
 //  * into the dbusers variable
 //  */
-
 function SignUp() {
+
   SwitchtoSignUp()
 
   // validate fields
@@ -212,4 +195,5 @@ function ValidateEmail() {
 
 	return valid
 }
+
 
