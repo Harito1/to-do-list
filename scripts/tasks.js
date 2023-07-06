@@ -18,6 +18,7 @@ saveBtn.addEventListener('click', saveTask)
 addTaskBtn.addEventListener('click', displayAddTaskForm)
 editSavebtn.addEventListener('click', saveEditedTask)
 searchTask.addEventListener('input', searchForTask)
+taskpage.addEventListener('onfocus', hideaddTaskForm)
 
 var taskId = new Date().toISOString();
 
@@ -115,6 +116,18 @@ function renderTasks() {
     for (const task of tasks) {
         createTask(task)
     }
+
+}
+
+/**
+ * this function shows searched tasks on web page
+ */
+function rendermatchingTasks(matchingTasks) {
+    clearTask()
+
+    for (const task of matchingTasks) {
+        createTask(task)
+    }
 }
 
 /**
@@ -135,8 +148,6 @@ function getTasks() {
 
     return newTasks
 }
-
-
 
 /**
  * this function deletes a specific task from the innerhtml and local storage
@@ -268,19 +279,23 @@ function clearTask() {
 }
 
 function searchForTask(e) {
-    var value = e.target.value
-    console.log(value);
+    var searchText = e.target.value
+    // console.log(value);
 
-    var localTasks = getTasks()
+    var tasks = getTasks()
 
-    var validtasks = []
 
-    for (let i = 0; i < localTasks.length; i++) {
-        var task = localTasks[i];
-        if (task === value) {
+    var matchingTasks = []
+    for (let i = 0; i < tasks.length; i++) {
+        var task = tasks[i];
 
-            validtasks.push(task)
-            
+        var taskName = task.task.toLowerCase()
+        var text = searchText.toLowerCase()
+
+        if (taskName.includes(text)) {
+            matchingTasks.push(task);
         }
     }
+
+    rendermatchingTasks(matchingTasks)
 }
