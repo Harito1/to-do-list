@@ -42,13 +42,20 @@ const usersString = localStorage.getItem('users')
   for (let i = 0; i < users.length; i++) {
 
     var correctEmail = EmailInput.value === users[i].email;
-    var correctPassword =  PasswordInput.value === users[i].password;
+    var correctPassword = PasswordInput.value === users[i].password;
     var correctDetails = correctEmail && correctPassword;
-
-    if (correctDetails) {
-      setPage('taskPage')
-    }
+  
+      if (correctDetails) {
+        setPage('taskPage')
+        alert('welcome back')
+        break
+      }
   }
+
+    if (correctEmail == false) {
+      alert('wrong details')
+      return
+    }
 
  document.querySelector(".login-form").reset();
 }

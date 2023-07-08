@@ -11,13 +11,12 @@ var pages = {
 };
 
 
-
+init()
 //Sets default page to Login Page
 function init() {
     setPage('loginPage')
 }
 //Switching Between Pages
-
 // setPage('taskPage')
 // setPage('pageC')
 // setPage('loginPage')
