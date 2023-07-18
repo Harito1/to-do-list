@@ -1,3 +1,4 @@
+
 // get elements
 var taskform = document.querySelector('.task-form');
 var addTaskBtn = document.querySelector('.addTask-btn');
@@ -16,12 +17,14 @@ var editSavebtn = document.querySelector('.save-Edit');
 // event listeners
 saveBtn.addEventListener('click', saveTask)
 addTaskBtn.addEventListener('click', displayAddTaskForm)
+
 editSavebtn.addEventListener('click', saveEditedTask)
 searchTask.addEventListener('input', searchForTask)
-taskpage.addEventListener('onfocus', hideaddTaskForm)
+// taskform.addEventListener('focusout', hideaddTaskForm)
+
+
 
 var taskId = new Date().toISOString();
-
 initialize()
 
 function initialize() {
@@ -53,7 +56,7 @@ function createTask(task) {
     //priority
     var priority = document.createElement('div')
     priority.innerHTML = task.priority;
-    priority.classList.add('.priority')
+    priority.classList.add('task-priority')
     todoDiv.appendChild(priority)
 
     // delete and edit button
@@ -73,8 +76,6 @@ function createTask(task) {
 
     todolist.appendChild(todoDiv)
 
-
-
     taskInput.value = "";
 
 }
@@ -91,10 +92,13 @@ function saveTask(e) {
         task: taskInput.value,
         priority: priorities.options[priorities.selectedIndex].text,
         due: dueDate.value,
-        id: new Date().toISOString()
+        id: new Date().toISOString(),
+        currentUserId: CurrentUserId()
     };
 
-    var tasks = getTasks()
+    console.log('user id', task.currentUserId);
+
+    var tasks = getAllTasks()
     tasks.push(task)
     localStorage.setItem('Tasks', JSON.stringify(tasks))
 
@@ -102,20 +106,6 @@ function saveTask(e) {
 
     hideaddTaskForm()
     renderTasks()
-}
-
-/**
- * this function gets the saved tasks from local storage and displays it on the screen
- */
-function renderTasks() {
-
-    const tasks = getTasks()
-
-    clearTask()
-
-    for (const task of tasks) {
-        createTask(task)
-    }
 
 }
 
@@ -135,18 +125,55 @@ function rendermatchingTasks(matchingTasks) {
  * 
  * @returns {Array}
  */
-function getTasks() {
+function getTasksForCurrentUser() {
     var localTaskstrng = localStorage.getItem('Tasks')
-
+    var localtask = JSON.parse(localTaskstrng)
     var newTasks = []
-
+    
     if (localTaskstrng === null) {
         return newTasks
     }
+   
+    // loop through tasks and compare task
+    for (let i = 0; i < localtask.length; i++) {
+        var task = localtask[i];
 
-    newTasks = JSON.parse(localTaskstrng)
+        if(task.currentUserId === CurrentUserId()) {
+           newTasks.push(task)
+        }
+     }
 
-    return newTasks
+     return newTasks
+     
+}
+
+/**
+ * this function gets all tasks from all users
+ */
+function getAllTasks() {
+    var localTaskstrng = localStorage.getItem('Tasks')
+    var localtask = JSON.parse(localTaskstrng)
+    var newTasks = []
+    
+    if (localTaskstrng === null) {
+        return newTasks
+    }
+     return localtask
+}
+
+/**
+ * this function gets the saved tasks from local storage and displays it on the screen
+ */
+function renderTasks() {
+
+    var tasks = getTasksForCurrentUser()
+
+    clearTask()
+
+    for (var task of tasks) {
+        createTask(task)
+    }
+
 }
 
 /**
@@ -158,7 +185,7 @@ function deleteTask(e) {
     var deleteButton = e.target
     var deletebtnID = deleteButton.getAttribute('data-id');
     
-    var localTasks = getTasks()
+    var localTasks = getTasksForCurrentUser()
 
     var validTasks = []
 
@@ -183,7 +210,6 @@ function saveTasksToStorage(tasks) {
     localStorage.setItem('Tasks', tasksString)
 }
 
-
 /**
  * this function will edit only tasks with matching ids as the edit button clicked
  */
@@ -195,7 +221,7 @@ function openEditform(e) {
     var editbtnId = editbtn.getAttribute('data-id')
     console.log(editbtnId);
 
-    var localTasks = getTasks()
+    var localTasks = getTasksForCurrentUser()
 
     for (let i = 0; i < localTasks.length; i++) {
          var task = localTasks[i];
@@ -218,7 +244,7 @@ function saveEditedTask(e) {
     var saveEditbtn = e.target
     var saveEditId = saveEditbtn.getAttribute('data-id')
 
-    var localTasks = getTasks()
+    var localTasks = getTasksForCurrentUser()
 
     for (let i = 0; i < localTasks.length; i++) {
          var task = localTasks[i];
@@ -247,7 +273,7 @@ function saveEditedTask(e) {
 function displayAddTaskForm() {
     taskform.style.display = 'grid';
     taskpage.style.filter = 'blur(3px)';
-    editSavebtn.style.display = 'none'
+    editSavebtn.style.display = 'none';
 }
 
 function displayEditTaskForm() {
@@ -282,7 +308,7 @@ function searchForTask(e) {
     var searchText = e.target.value
     // console.log(value);
 
-    var tasks = getTasks()
+    var tasks = getTasksForCurrentUser()
 
 
     var matchingTasks = []

@@ -23,41 +23,41 @@ loginbtn.addEventListener("click", Login);
 SignUpbtn.addEventListener("click", SignUp);
 
 var users = []
-
+var userID = new Date().toISOString();
 
 // /**
 //  * This function verifies if the users Email and password input match the users saved
 //  * Email and password, if not it will alert incorrect email/password
 //  *  or login successfull or incorrect details if both inputs dont match.
 //  */
-function Login(users) {
-  
+function Login(users) { 
   SwitchtoLOGIN()
 
-const usersString = localStorage.getItem('users')
-  if (usersString) {
-    users = JSON.parse(usersString)
-  } 
+    const usersString = localStorage.getItem('users')
+        if (usersString) {
+          users = JSON.parse(usersString)
+        } 
+      
+      for (let i = 0; i < users.length; i++) {
+          var user = users[i]
 
-  for (let i = 0; i < users.length; i++) {
-
-    var correctEmail = EmailInput.value === users[i].email;
-    var correctPassword = PasswordInput.value === users[i].password;
-    var correctDetails = correctEmail && correctPassword;
-  
-      if (correctDetails) {
-        setPage('taskPage')
-        alert('welcome back')
-        break
-      }
-  }
-
-    if (correctEmail == false) {
-      alert('wrong details')
-      return
-    }
-
- document.querySelector(".login-form").reset();
+          var correctEmail = EmailInput.value === users[i].email;
+          var correctPassword = PasswordInput.value === users[i].password;
+          var correctDetails = correctEmail && correctPassword;
+        
+            if (correctDetails) {
+              setPage('taskPage')
+              sessionStorage.setItem('current-user', JSON.stringify(user))
+              alert('welcome back ' + user.firstname)
+              renderTasks()
+              break
+            }
+       }
+          if (correctEmail == false) {
+            alert('wrong details')
+            return
+          }
+    document.querySelector(".login-form").reset();
 }
 
 
@@ -120,7 +120,7 @@ function SignUp() {
   // validate emails
   const valid = ValidateEmail()
   if (!valid) {
-    alert('users already exits')
+    alert('user already exits')
     return
   }
 
@@ -149,17 +149,20 @@ function validateSignUpFields() {
   return ''
 }
 
-function SaveUsertolocalStorage(users) {
+function SaveUsertolocalStorage(users) { 
 	
   var newUser = {
-		firstname:  NameInput.value,
-		lastName: lastNameInput.value,
-		email :emailInputSignup.value,
-		password: SignupPassword.value,
+		firstname : NameInput.value,
+		lastName : lastNameInput.value,
+		email : emailInputSignup.value,
+		password : SignupPassword.value,
+    Id : new Date().toISOString()
   }
-	console.log('new user :', newUser)
 
-	const usersString = localStorage.getItem('users')
+  const usersString = localStorage.getItem('users')
+  console.log('users id :',newUser.Id);
+	// console.log('new user :', newUser)
+
   if (usersString === null) {
      users = [newUser]
   } else {
@@ -171,6 +174,18 @@ function SaveUsertolocalStorage(users) {
   localStorage.setItem('users', JSON.stringify(users));
 	clearSignUpForm()
 	alert('user saved')
+
+}
+
+/**
+ * this function gets the current users id from the database session storage
+ * @returns currentUser.Id
+ */
+function CurrentUserId() {
+    const usersStrg = sessionStorage.getItem('current-user')
+    var currentUser = JSON.parse(usersStrg)
+    var currentUserid = currentUser.Id
+    return currentUserid
 }
 
 /**
@@ -202,5 +217,4 @@ function ValidateEmail() {
 
 	return valid
 }
-
 
